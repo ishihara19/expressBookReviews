@@ -38,18 +38,18 @@ regd_users.post("/login", (req,res) => {
     return res.status(404).json({message: "Error logging in"})
   }
   if(authenticatedUser(username,password)){
-    let accesToken = jwt.sign({
+    let accessToken = jwt.sign({
         data: password
     },'access',{expiresIn: 60*60});
     req.session.authorization ={
-        accesToken,username
+        accessToken,username
     }
     return res.status(200).send(`${username} successfully logged in`)
   }else{
     return res.status(208).json({message: "Invalid Login. Check username and password"});
   }
   
-  return res.status(300).json({message: "Yet to be implemented"});
+  //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 // Add a book review

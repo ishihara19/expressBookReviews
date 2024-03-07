@@ -79,14 +79,16 @@ public_users.get('/review/:isbn',function (req, res) {
     const reseña = books[isbn]
     if(reseña && reseña.reviews){
         const views = reseña.reviews
-        res.send(views)
+        return res.status(200).send(views)
     }else{
-        return res.status(300).json({message: "Yet to be implemented"});
+        return res.status(404).json({message: "ibs not exist"});
     }    
 
     
   
 });
+
+
 
 
 module.exports.general = public_users;
