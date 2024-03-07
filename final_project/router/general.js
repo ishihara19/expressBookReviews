@@ -5,16 +5,6 @@ let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
 
-const doesExist = (username)=>{
-    let userswithsamename = users.filter((user)=>{
-      return user.username === username
-    });
-    if(userswithsamename.length > 0){
-      return true;
-    } else {
-      return false;
-    }
-  }
 
 public_users.post("/register", (req,res) => {
   //Write your code here
@@ -28,7 +18,7 @@ public_users.post("/register", (req,res) => {
     return res.status(404).json({message: "password not provided!"})
   }else{
     if(username && password){
-        if(!doesExist(username)){
+        if(!isValid(username)){
             users.push({"username":username,"password":password});
             return res.status(200).json({message:"usuario successfully registred. Now you can login"})
         }else{
