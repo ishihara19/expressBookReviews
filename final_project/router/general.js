@@ -40,10 +40,15 @@ public_users.get('/',function (req, res) {
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
   const isbn = req.params.isbn;
-  if(books[isbn]){
+  if(!books[isbn]){
+    return res.status(400).json({message: "ibsn not exist"})
+  }
+  return res.status(200).send(books[isbn])
+
+ /* if(books[isbn]){
     return res.status(200).send(books[isbn])
   }
-    return res.status(300).json({message: "Yet to be implemented"});
+    return res.status(400).json({message: "ibsn not exist"});*/
  });
   
 // Get book details based on author
@@ -77,11 +82,12 @@ public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
   const isbn = req.params.isbn;
     const reseña = books[isbn]
+   
     if(reseña && reseña.reviews){
         const views = reseña.reviews
         return res.status(200).send(views)
     }else{
-        return res.status(404).json({message: "ibs not exist"});
+        return res.status(404).json({message: "ibsn not exist"});
     }    
 
     
