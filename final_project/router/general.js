@@ -26,7 +26,7 @@ public_users.post("/register", (req,res) => {
         }
       }
   }
-  return res.status(300).json({message: "Yet to be implemented"});
+  //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 // Get the book list available in the shop
@@ -61,7 +61,7 @@ public_users.get('/author/:author',function (req, res) {
         return res.status(200).send(filter_author)
     }
     
-  return res.status(300).json({message: "Yet to be implemented"});
+  return res.status(404).json({message: `the Author ${author} not found`});
 });
 
 // Get all books based on title
@@ -74,7 +74,7 @@ public_users.get('/title/:title',function (req, res) {
     return res.status(200).send(filterTitle)
   }
   
-  return res.status(300).json({message: "Yet to be implemented"});
+  return res.status(404).json({message: `the title ${title} not found`});
 });
 
 //  Get book review

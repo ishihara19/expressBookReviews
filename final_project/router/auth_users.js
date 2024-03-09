@@ -60,16 +60,15 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     
     const username = token
     const reseña = books[isbn]['reviews']
-    let reviewsArry = Object.values(reseña)
-    console.log(reviewsArry)
+        
     if(!books){
         return res.status(404).send("isbn not exist")
     }
-    const validReview = reviewsArry.findIndex(review => review.user === username )
-    console.log(validReview)
+    const validReview = reseña.findIndex(review => review.user === username )
+    
 
     if(validReview !== -1){
-        reviewsArry[validReview].review = req.body.review;
+        reseña[validReview].review = req.body.review;
         return res.status(200).json({message: `The user ${username} has updated their review form ISBN ${isbn}`})
     }else{
         
@@ -77,11 +76,9 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
             user: username,
             review: req.body.review
         };
-        reviewsArry.push(newReview);
-        console.log(reviewsArry)
-        console.log(reseña)
-
-        res.send(`nueva reseña para el usuaro ${username} y reseña ${req.body.review}`)
+        reseña.push(newReview);
+        
+        res.send(`The user ${username} added a new review`)
     }
     
     
