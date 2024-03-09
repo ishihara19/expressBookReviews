@@ -56,12 +56,10 @@ regd_users.post("/login", (req,res) => {
 regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
     const isbn = req.params.isbn;
-    const token = req.session.authorization.username;
-    
-    const username = token
+    const username = req.session.authorization.username;
     const reseña = books[isbn]['reviews']
         
-    if(!books){
+    if(!books[isbn]){
         return res.status(404).send("isbn not exist")
     }
     const validReview = reseña.findIndex(review => review.user === username )
