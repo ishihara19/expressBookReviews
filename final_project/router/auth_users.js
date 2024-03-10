@@ -83,6 +83,8 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   //return res.status(300).json({message: "Yet to be implemented"});
 });
 
+
+
 regd_users.delete("/auth/review/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   const username = req.session.authorization.username;
@@ -94,9 +96,17 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
  
   books[isbn]['reviews'] = books[isbn]['reviews'].filter(review => review.user !== username);
 
- 
-  return res.status(200).json({ message: `Reviews for ISBN ${isbn} by user ${username} have been deleted` });
+  function addApostrophe(username) {
+    let nameApos = username
+    if (nameApos.charAt(nameApos.length - 1) === 's') {
+      return nameApos + "'";
+    } else {
+      return nameApos + "'s";
+    }
+  }
+   return res.status(200).json({ message: `${addApostrophe(username)} review have been deleted` });
 });
+
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
